@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>План рассадки</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -9,12 +10,13 @@
             background-color: #fdfdfd;
             font-family: 'Open Sans', sans-serif;
             color: #000;
-            padding: 60px 40px;
+            padding: 40px 20px;
             max-width: 800px;
             margin: 0 auto;
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
+
         .couple {
             font-family: 'Great Vibes', cursive;
             font-size: 54px;
@@ -22,6 +24,7 @@
             margin-bottom: 10px;
             color: #222;
         }
+
         h1 {
             font-family: 'Great Vibes', cursive;
             font-size: 40px;
@@ -29,53 +32,88 @@
             margin-bottom: 20px;
             letter-spacing: 1px;
         }
+
         .search-box {
             text-align: center;
             margin-bottom: 40px;
         }
+
         .search-box input {
             font-size: 16px;
             padding: 5px 10px;
-            width: 60%;
+            width: 100%;
+            max-width: 400px;
             border: none;
             border-bottom: 2px solid #999;
             background: transparent;
             text-align: center;
             outline: none;
         }
+
         .search-box input::placeholder {
             color: #aaa;
             font-style: italic;
         }
+
         .row {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             margin-bottom: 40px;
+            gap: 20px;
         }
+
         .table {
             width: 48%;
         }
+
         .table-title {
             font-family: 'Great Vibes', cursive;
             font-size: 28px;
             text-align: center;
             margin-bottom: 15px;
         }
+
         .table-title span {
             border-bottom: 1px solid #000;
             padding-bottom: 3px;
         }
+
         .guest-list {
             text-align: center;
         }
+
         .guest {
             font-size: 14px;
             margin: 2px 0;
             letter-spacing: 0.5px;
         }
+
         mark {
             background-color: yellow;
             font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .table {
+                width: 100%;
+            }
+
+            .couple {
+                font-size: 40px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .table-title {
+                font-size: 24px;
+            }
+
+            .guest {
+                font-size: 13px;
+            }
         }
     </style>
 </head>
@@ -87,39 +125,107 @@
         <input type="text" id="searchInput" placeholder="Введите здесь">
     </div>
 
-    <!-- tables below (оставлены как есть) -->
     <div class='row'>
         <div class="table">
             <div class="table-title"><span>Стол 1</span></div>
-            <div class="guest-list"><div class='guest'>ИВАНОВ ИВАН</div><div class='guest'>ПЕТРОВ АННА</div><div class='guest'>СИДОРОВ ПАВЕЛ</div><div class='guest'>СМИРНОВ МАРИЯ</div><div class='guest'>КУЗНЕЦОВ АЛЕКСЕЙ</div><div class='guest'>ПОПОВ ЕЛЕНА</div><div class='guest'>ВОЛКОВ ДМИТРИЙ</div><div class='guest'>МОРОЗОВ ОЛЬГА</div><div class='guest'>ФЁДОРОВ СЕРГЕЙ</div><div class='guest'>АЛЕКСЕЕВ НАТАЛЬЯ</div></div>
+            <div class="guest-list">
+                <div class='guest'>ИВАНОВ ИВАН</div>
+                <div class='guest'>ПЕТРОВ АННА</div>
+                <div class='guest'>СИДОРОВ ПАВЕЛ</div>
+                <div class='guest'>СМИРНОВ МАРИЯ</div>
+                <div class='guest'>КУЗНЕЦОВ АЛЕКСЕЙ</div>
+                <div class='guest'>ПОПОВ ЕЛЕНА</div>
+                <div class='guest'>ВОЛКОВ ДМИТРИЙ</div>
+                <div class='guest'>МОРОЗОВ ОЛЬГА</div>
+                <div class='guest'>ФЁДОРОВ СЕРГЕЙ</div>
+                <div class='guest'>АЛЕКСЕЕВ НАТАЛЬЯ</div>
+            </div>
         </div>
-        
+
         <div class="table">
             <div class="table-title"><span>Стол 2</span></div>
-            <div class="guest-list"><div class='guest'>ИВАНОВ ИВАН</div><div class='guest'>ПЕТРОВ АННА</div><div class='guest'>СИДОРОВ ПАВЕЛ</div><div class='guest'>СМИРНОВ МАРИЯ</div><div class='guest'>КУЗНЕЦОВ АЛЕКСЕЙ</div><div class='guest'>ПОПОВ ЕЛЕНА</div><div class='guest'>ВОЛКОВ ДМИТРИЙ</div><div class='guest'>МОРОЗОВ ОЛЬГА</div><div class='guest'>ФЁДОРОВ СЕРГЕЙ</div><div class='guest'>АЛЕКСЕЕВ НАТАЛЬЯ</div></div>
+            <div class="guest-list">
+                <div class='guest'>ИВАНОВ ИВАН</div>
+                <div class='guest'>ПЕТРОВ АННА</div>
+                <div class='guest'>СИДОРОВ ПАВЕЛ</div>
+                <div class='guest'>СМИРНОВ МАРИЯ</div>
+                <div class='guest'>КУЗНЕЦОВ АЛЕКСЕЙ</div>
+                <div class='guest'>ПОПОВ ЕЛЕНА</div>
+                <div class='guest'>ВОЛКОВ ДМИТРИЙ</div>
+                <div class='guest'>МОРОЗОВ ОЛЬГА</div>
+                <div class='guest'>ФЁДОРОВ СЕРГЕЙ</div>
+                <div class='guest'>АЛЕКСЕЕВ НАТАЛЬЯ</div>
+            </div>
         </div>
-        </div><div class='row'>
+    </div>
+
+    <div class='row'>
         <div class="table">
             <div class="table-title"><span>Стол 3</span></div>
-            <div class="guest-list"><div class='guest'>ИВАНОВ ИВАН</div><div class='guest'>ПЕТРОВ АННА</div><div class='guest'>СИДОРОВ ПАВЕЛ</div><div class='guest'>СМИРНОВ МАРИЯ</div><div class='guest'>КУЗНЕЦОВ АЛЕКСЕЙ</div><div class='guest'>ПОПОВ ЕЛЕНА</div><div class='guest'>ВОЛКОВ ДМИТРИЙ</div><div class='guest'>МОРОЗОВ ОЛЬГА</div><div class='guest'>ФЁДОРОВ СЕРГЕЙ</div><div class='guest'>АЛЕКСЕЕВ НАТАЛЬЯ</div></div>
+            <div class="guest-list">
+                <div class='guest'>ИВАНОВ ИВАН</div>
+                <div class='guest'>ПЕТРОВ АННА</div>
+                <div class='guest'>СИДОРОВ ПАВЕЛ</div>
+                <div class='guest'>СМИРНОВ МАРИЯ</div>
+                <div class='guest'>КУЗНЕЦОВ АЛЕКСЕЙ</div>
+                <div class='guest'>ПОПОВ ЕЛЕНА</div>
+                <div class='guest'>ВОЛКОВ ДМИТРИЙ</div>
+                <div class='guest'>МОРОЗОВ ОЛЬГА</div>
+                <div class='guest'>ФЁДОРОВ СЕРГЕЙ</div>
+                <div class='guest'>АЛЕКСЕЕВ НАТАЛЬЯ</div>
+            </div>
         </div>
-        
+
         <div class="table">
             <div class="table-title"><span>Стол 4</span></div>
-            <div class="guest-list"><div class='guest'>ИВАНОВ ИВАН</div><div class='guest'>ПЕТРОВ АННА</div><div class='guest'>СИДОРОВ ПАВЕЛ</div><div class='guest'>СМИРНОВ МАРИЯ</div><div class='guest'>КУЗНЕЦОВ АЛЕКСЕЙ</div><div class='guest'>ПОПОВ ЕЛЕНА</div><div class='guest'>ВОЛКОВ ДМИТРИЙ</div><div class='guest'>МОРОЗОВ ОЛЬГА</div><div class='guest'>ФЁДОРОВ СЕРГЕЙ</div><div class='guest'>АЛЕКСЕЕВ НАТАЛЬЯ</div></div>
+            <div class="guest-list">
+                <div class='guest'>ИВАНОВ ИВАН</div>
+                <div class='guest'>ПЕТРОВ АННА</div>
+                <div class='guest'>СИДОРОВ ПАВЕЛ</div>
+                <div class='guest'>СМИРНОВ МАРИЯ</div>
+                <div class='guest'>КУЗНЕЦОВ АЛЕКСЕЙ</div>
+                <div class='guest'>ПОПОВ ЕЛЕНА</div>
+                <div class='guest'>ВОЛКОВ ДМИТРИЙ</div>
+                <div class='guest'>МОРОЗОВ ОЛЬГА</div>
+                <div class='guest'>ФЁДОРОВ СЕРГЕЙ</div>
+                <div class='guest'>АЛЕКСЕЕВ НАТАЛЬЯ</div>
+            </div>
         </div>
-        </div><div class='row'>
+    </div>
+
+    <div class='row'>
         <div class="table">
             <div class="table-title"><span>Стол 5</span></div>
-            <div class="guest-list"><div class='guest'>ИВАНОВ ИВАН</div><div class='guest'>ПЕТРОВ АННА</div><div class='guest'>СИДОРОВ ПАВЕЛ</div><div class='guest'>СМИРНОВ МАРИЯ</div><div class='guest'>КУЗНЕЦОВ АЛЕКСЕЙ</div><div class='guest'>ПОПОВ ЕЛЕНА</div><div class='guest'>ВОЛКОВ ДМИТРИЙ</div><div class='guest'>МОРОЗОВ ОЛЬГА</div><div class='guest'>ФЁДОРОВ СЕРГЕЙ</div><div class='guest'>АЛЕКСЕЕВ НАТАЛЬЯ</div></div>
+            <div class="guest-list">
+                <div class='guest'>ИВАНОВ ИВАН</div>
+                <div class='guest'>ПЕТРОВ АННА</div>
+                <div class='guest'>СИДОРОВ ПАВЕЛ</div>
+                <div class='guest'>СМИРНОВ МАРИЯ</div>
+                <div class='guest'>КУЗНЕЦОВ АЛЕКСЕЙ</div>
+                <div class='guest'>ПОПОВ ЕЛЕНА</div>
+                <div class='guest'>ВОЛКОВ ДМИТРИЙ</div>
+                <div class='guest'>МОРОЗОВ ОЛЬГА</div>
+                <div class='guest'>ФЁДОРОВ СЕРГЕЙ</div>
+                <div class='guest'>АЛЕКСЕЕВ НАТАЛЬЯ</div>
+            </div>
         </div>
-        
+
         <div class="table">
             <div class="table-title"><span>Стол 6</span></div>
-            <div class="guest-list"><div class='guest'>ИВАНОВ ИВАН</div><div class='guest'>ПЕТРОВ АННА</div><div class='guest'>СИДОРОВ ПАВЕЛ</div><div class='guest'>СМИРНОВ МАРИЯ</div><div class='guest'>КУЗНЕЦОВ АЛЕКСЕЙ</div><div class='guest'>ПОПОВ ЕЛЕНА</div><div class='guest'>ВОЛКОВ ДМИТРИЙ</div><div class='guest'>МОРОЗОВ ОЛЬГА</div><div class='guest'>ФЁДОРОВ СЕРГЕЙ</div><div class='guest'>АЛЕКСЕЕВ НАТАЛЬЯ</div></div>
+            <div class="guest-list">
+                <div class='guest'>ИВАНОВ ИВАН</div>
+                <div class='guest'>ПЕТРОВ АННА</div>
+                <div class='guest'>СИДОРОВ ПАВЕЛ</div>
+                <div class='guest'>СМИРНОВ МАРИЯ</div>
+                <div class='guest'>КУЗНЕЦОВ АЛЕКСЕЙ</div>
+                <div class='guest'>ПОПОВ ЕЛЕНА</div>
+                <div class='guest'>ВОЛКОВ ДМИТРИЙ</div>
+                <div class='guest'>МОРОЗОВ ОЛЬГА</div>
+                <div class='guest'>ФЁДОРОВ СЕРГЕЙ</div>
+                <div class='guest'>АЛЕКСЕЕВ НАТАЛЬЯ</div>
+            </div>
         </div>
-        </div>
-    <!-- Остальные столы (3–6) оставлены без изменений -->
+    </div>
 
     <script>
         const input = document.getElementById('searchInput');
