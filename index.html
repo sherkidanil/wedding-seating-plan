@@ -12,10 +12,9 @@
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;display:flex;flex-direction:column}
 
-    /* Шапка как в макете */
+    /* Шапка */
     .hero{padding:36px 12px 12px;text-align:center}
     .hero h1{font-family:"Great Vibes",cursive;font-size:clamp(40px,8vw,72px);font-weight:400;line-height:1.05}
-    .hero h2{font-family:"Great Vibes",cursive;font-size:clamp(28px,5.2vw,48px);font-weight:700;margin-top:8px}
     .hero input{
       margin:14px auto 8px;display:block;width:min(440px,86vw);
       border:none;border-bottom:3px solid #bfbfbf;border-radius:0;
@@ -23,36 +22,45 @@
     }
 
     main{flex:1;min-height:0;display:flex;flex-direction:column;gap:0;padding:0 10px 10px}
-    .stage{flex:1;min-height:0;position:relative;border:1px solid #e8e2da;border-radius:12px;background:#fff;margin-top:6px}
+    .stage{flex:1;min-height:0;position:relative;border:1px solid #e8e2da;border-radius:12px;background:#fff;margin-top:6px;height:min(80vh,1100px)}
     .frame{position:absolute;inset:8px;border-radius:10px;overflow:hidden;background:#fff}
     svg{width:100%;height:100%}
 
-    /* Точки и подписи (резиновые размеры) */
-    .seat text{font-size:clamp(11px,1.8vw,16px);font-weight:600;fill:#202428}
+    /* точки и подписи */
+    .seat text{font-size:clamp(13px, 2.4vw, 18px);font-weight:600;fill:#202428}
     .seat circle{fill:var(--accent);stroke:#7a5e54;stroke-width:0.5}
 
-    /* Мобильные правки */
-    @media (max-width:600px){
-      .hero{padding:22px 10px 6px}
-      .stage{margin-top:4px}
+    /* подсветка */
+    .seat.dim { opacity: 0.35; }
+    .seat.match text{
+      fill: #000;
+      font-weight: 800;
+      letter-spacing: 0.1px;
+      paint-order: stroke;
+      stroke: #ffffff;
+      stroke-width: 2px;
     }
 
-    /* высота сцены — вьюпортная, но не бесконечная */
-    .stage{height:min(80vh,1100px)}
+    /* мобильные */
+    @media (max-width:600px){
+      .hero{padding:22px 10px 6px}
+      .seat text{ font-size:18px; }
+    }
+    @media (max-width:380px){
+      .seat text{ font-size:19px; }
+    }
   </style>
 </head>
 <body>
 
   <section class="hero">
     <h1>Даниил &amp; Кристина</h1>
-    <!-- <h2>План рассадки</h2> -->
     <input id="search" placeholder="Введите здесь свое имя..." />
   </section>
 
   <main>
     <div class="stage">
       <div class="frame">
-        <!-- viewBox зададим из JS по фактическим координатам гостей -->
         <svg id="plan" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           <g id="guests"></g>
         </svg>
@@ -69,15 +77,13 @@
     const guestsG = document.getElementById('guests');
     const search = document.getElementById('search');
 
-    // вычисляем компактный viewBox по гостям
     function setTightViewBox(padX=60, padY=120){
       const xs = DATA.guests.map(g=>g.cx);
       const ys = DATA.guests.map(g=>g.cy);
       const minX = Math.min(...xs) - padX;
       const maxX = Math.max(...xs) + padX;
-      const minY = Math.min(...ys) - padY; // больше паддинг сверху — там текст над точками
+      const minY = Math.min(...ys) - padY;
       const maxY = Math.max(...ys) + padY/2;
-
       const w = maxX - minX;
       const h = maxY - minY;
       svg.setAttribute('viewBox', `${minX} ${minY} ${w} ${h}`);
@@ -85,9 +91,10 @@
 
     function dotRadius(){
       const w = window.innerWidth;
-      if (w <= 480) return 3.2;
-      if (w <= 900) return 4;
-      return 4.6;
+      if (w <= 380) return 4.2;
+      if (w <= 600) return 4.6;
+      if (w <= 900) return 4.8;
+      return 5.0;
     }
 
     function splitName(label){
@@ -104,8 +111,6 @@
       const r = dotRadius();
 
       for (const g of DATA.guests) {
-        if (q && !g.label.toLowerCase().includes(q)) continue;
-
         const grp = document.createElementNS('http://www.w3.org/2000/svg','g');
         grp.setAttribute('class','seat');
         grp.setAttribute('transform', `translate(${g.cx}, ${g.cy})`);
@@ -117,33 +122,32 @@
         text.setAttribute('dy','-16');
 
         const t1 = document.createElementNS('http://www.w3.org/2000/svg','tspan');
-        t1.setAttribute('x', 0); t1.setAttribute('dy', 0);
-        t1.textContent = firstName;
-
-        const t2 = document.createElementNS('http://www.w3.org/2000/svg','tspan');
-        t2.setAttribute('x', 0); t2.setAttribute('dy', '1.2em');
-        t2.textContent = lastName;
-
+        t1.setAttribute('x', 0); t1.setAttribute('dy', 0); t1.textContent = firstName;
         text.appendChild(t1);
-        if (lastName) text.appendChild(t2);
+
+        if (lastName){
+          const t2 = document.createElementNS('http://www.w3.org/2000/svg','tspan');
+          t2.setAttribute('x', 0); t2.setAttribute('dy', '1.2em'); t2.textContent = lastName;
+          text.appendChild(t2);
+        }
 
         const dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
         dot.setAttribute('r', r);
 
-        grp.appendChild(dot);
+        if (q){
+          const isMatch = g.label.replace(/\n/g,' ').toLowerCase().includes(q);
+          grp.classList.add(isMatch ? 'match' : 'dim');
+        }
+
         grp.appendChild(text);
+        grp.appendChild(dot);
         guestsG.appendChild(grp);
       }
     }
 
-    // события
     search.addEventListener('input', () => renderGuests(search.value));
-    window.addEventListener('resize', () => {
-      const current = search.value || '';
-      renderGuests(current);
-    });
+    window.addEventListener('resize', () => renderGuests(search.value));
 
-    // старт
     setTightViewBox();
     renderGuests();
   </script>
