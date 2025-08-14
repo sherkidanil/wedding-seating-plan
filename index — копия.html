@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Рассадка — светлая тема</title>
+  <style>
+    :root{--bg:#ffffff;--panel:#f6efe6;--ink:#1f2328;--inksoft:#4a4f55;--accent:#b48b7d;}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;display:flex;flex-direction:column}
+    header{padding:12px 14px;background:var(--panel);border-bottom:1px solid #e1d6c9;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .muted{color:var(--inksoft)}
+    .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    input{padding:8px 10px;border-radius:10px;border:1px solid #d8cbbd;background:#fff;color:var(--ink);outline:none}
+    label{display:flex;align-items:center;gap:6px;cursor:pointer;color:var(--ink)}
+    main{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px;padding:10px}
+    .stage{flex:1;min-height:0;position:relative;border:1px solid #e8e2da;border-radius:12px;background:#fff}
+    .frame{position:absolute;inset:8px;border-radius:10px;overflow:hidden;background:#fff}
+    svg{width:100%;height:100%;background:#fff}
+    .seat circle{fill:var(--accent);stroke:#7a5e54;stroke-width:0.5}
+    .seat text{font-size:11px;fill:#202428}
+    .box{fill:rgba(180,139,125,0.08);stroke:#b48b7d;stroke-width:1}
+    .controls{display:flex;gap:8px;align-items:center}
+    .hint{font-size:12px;color:var(--inksoft)}
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>Рассадка</strong> <span class="muted">• светлая тема</span></div>
+    <div class="toolbar">
+      <input id="search" placeholder="Поиск гостя..." />
+      <label><input type="checkbox" id="toggleBoxes" checked /> Показать группы</label>
+    </div>
+  </header>
+  <main>
+    <div class="hint" style="padding:0 2px">Фон — белый, панель — бежевый, акцент — mocha mousse.</div>
+    <div class="stage">
+      <div class="frame">
+        <svg viewBox="1180.0 707.0000610351562 842.0 1190.0" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <g id="groupBoxes"></g>
+          <g id="tablesWrap"> <image id="tablesImg" href="Group 1.png" x="1282.9037" y="764.88285" width="634.0926" height="1006.3243" preserveAspectRatio="xMidYMid meet" opacity="0.25" style="pointer-events:none" /> </g>
+          <g id="guests"></g>
+        </svg>
+      </div>
+    </div>
+  </main>
+  <script>
+    const DATA = {
+      page: {"x":1180.0, "y":707.0000610351562, "w":842.0, "h":1190.0},
+      guests: [{"label": "Кристина", "cx": 1556.41, "cy": 751.22}, {"label": "Даниил", "cx": 1639.7, "cy": 751.12}, {"label": "Елена Лукина", "cx": 1455.57, "cy": 1073.58}, {"label": "Вадим \nЕхлаков", "cx": 1505.54, "cy": 1196.96}, {"label": "Злата Русина", "cx": 1510.6, "cy": 1267.27}, {"label": "Артем \nДанилов", "cx": 1496.47, "cy": 1336.76}, {"label": "Савелий \nДанилов", "cx": 1468.0, "cy": 1399.48}, {"label": "Виолетта Данилова", "cx": 1488.52, "cy": 1522.45}, {"label": "Акмаль Ахмедов", "cx": 1482.26, "cy": 1740.82}, {"label": "Елизавета Власюк", "cx": 1510.65, "cy": 1678.51}, {"label": "Сергей \nДанилов", "cx": 1515.03, "cy": 1598.29}, {"label": "Наталья Ехлакова", "cx": 1319.94, "cy": 956.31}, {"label": "Стефания Русина", "cx": 1286.45, "cy": 1027.35}, {"label": "Светлана Русина", "cx": 1283.61, "cy": 1112.58}, {"label": "Дмитрий Русин", "cx": 1311.84, "cy": 1189.86}, {"label": "София Русина", "cx": 1339.4, "cy": 1255.13}, {"label": "Екатерина Дулевич", "cx": 1312.64, "cy": 1326.15}, {"label": "Заяшников Кирилл", "cx": 1285.41, "cy": 1394.89}, {"label": "София Остудина", "cx": 1284.13, "cy": 1475.3}, {"label": "Юлия Ярыгина", "cx": 1311.87, "cy": 1549.33}, {"label": "Максим Ярыгин", "cx": 1342.57, "cy": 1622.89}, {"label": "Вячеслав \nЛукин", "cx": 1473.88, "cy": 1135.99}, {"label": "Соломон Данилов", "cx": 1461.94, "cy": 1466.6}, {"label": "Ольга Микушина", "cx": 1874.58, "cy": 957.15}, {"label": "Олег Микушин", "cx": 1906.21, "cy": 1016.77}, {"label": "Эльвира Шерки", "cx": 1736.9, "cy": 1079.86}, {"label": "Юрий Михайлов", "cx": 1714.15, "cy": 1147.21}, {"label": "Светлана Шерки", "cx": 1685.27, "cy": 1214.27}, {"label": "Яна Шерки", "cx": 1680.24, "cy": 1299.03}, {"label": "Илья Шерки", "cx": 1707.07, "cy": 1368.73}, {"label": "Виталина Шерки", "cx": 1738.93, "cy": 1443.97}, {"label": "Александра Алексеева", "cx": 1713.49, "cy": 1507.42}, {"label": "Дмитрий Алексеев", "cx": 1685.16, "cy": 1579.65}, {"label": "Иван Мамьянов", "cx": 1681.47, "cy": 1662.68}, {"label": "Сахаяна Николаева", "cx": 1708.86, "cy": 1736.33}, {"label": "Александр Алексеев", "cx": 1911.26, "cy": 1086.95}, {"label": "Татьяна Алексеева", "cx": 1893.97, "cy": 1158.77}, {"label": "Октябрина Головченко", "cx": 1868.71, "cy": 1217.63}, {"label": "Анастасия Корсакова", "cx": 1867.59, "cy": 1281.35}, {"label": "Марина Кольцова", "cx": 1894.81, "cy": 1349.3}, {"label": "Елисей Микушин", "cx": 1916.56, "cy": 1417.77}, {"label": "Дамир Ахметов", "cx": 1914.81, "cy": 1495.74}, {"label": "Егор Черепанов", "cx": 1879.37, "cy": 1563.64}, {"label": "Дарья Коротышова", "cx": 1853.07, "cy": 1625.21}],
+      boxes: [{"name": "Group 10", "x": 1259.04, "y": 926.31, "w": 280.31, "h": 844.49, "count": 21}, {"name": "Group 9", "x": 1657.28, "y": 925.29, "w": 283.58, "h": 843.28, "count": 21}]
+    };
+
+    const guestsG = document.getElementById('guests');
+    const boxesG = document.getElementById('groupBoxes');
+    const search = document.getElementById('search');
+    const toggleBoxes = document.getElementById('toggleBoxes');
+
+    function renderGuests(filter='') {
+      const q = filter.trim().toLowerCase();
+      guestsG.innerHTML='';
+      for (const g of DATA.guests) {
+        if (q && !g.label.toLowerCase().includes(q)) continue;
+        const grp = document.createElementNS('http://www.w3.org/2000/svg','g');
+        grp.setAttribute('class','seat');
+        grp.setAttribute('transform', `translate(${g.cx}, ${g.cy})`);
+        const dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        dot.setAttribute('r', 4.5);
+        const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+        text.setAttribute('dy','-8'); text.textContent = g.label;
+        grp.appendChild(dot); grp.appendChild(text);
+        guestsG.appendChild(grp);
+      }
+    }
+
+    function renderBoxes() {
+      boxesG.innerHTML='';
+      if (!toggleBoxes.checked) return;
+      for (const b of DATA.boxes) {
+        const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        r.setAttribute('class','box');
+        r.setAttribute('x', b.x); r.setAttribute('y', b.y);
+        r.setAttribute('width', b.w); r.setAttribute('height', b.h);
+        r.setAttribute('rx', 12); r.setAttribute('ry', 12);
+        boxesG.appendChild(r);
+      }
+    }
+
+    search.addEventListener('input', () => renderGuests(search.value));
+    toggleBoxes.addEventListener('change', renderBoxes);
+
+    renderBoxes();
+    renderGuests();
+  </script>
+</body>
+</html>
