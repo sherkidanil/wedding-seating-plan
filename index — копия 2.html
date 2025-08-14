@@ -7,12 +7,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
+
+
   <style>
     :root{
       --bg:#ffffff; --ink:#1f2328; --accent:#b48b7d;
     }
     *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;display:flex;flex-direction:column}
+    html,body{height:100%;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;display:flex;flex-direction:column}
 
     /* Шапка */
     .hero{padding:36px 12px 12px;text-align:center}
@@ -28,27 +30,24 @@
     .frame{position:absolute;inset:8px;border-radius:10px;overflow:hidden;background:#fff}
     svg{width:100%;height:100%}
 
-    /* фон-картинка в SVG */
-    #bg { pointer-events:none; opacity:.95 }
-
     /* точки и подписи */
     .seat text{
-      font-family:'Playfair Display', serif;
-      font-size:clamp(13px, 2.4vw, 18px);
-      font-weight:600;
-      fill:#202428;
+      font-family: 'Playfair Display', sans-serif;
+      font-size: clamp(13px, 2.4vw, 18px);
+      font-weight: 600;
+      fill: #202428;
     }
     .seat circle{fill:var(--accent);stroke:#7a5e54;stroke-width:0.5}
 
     /* подсветка */
-    .seat.dim { opacity:0.35; }
+    .seat.dim { opacity: 0.35; }
     .seat.match text{
-      fill:#000;
-      font-weight:800;
-      letter-spacing:0.1px;
-      paint-order:stroke;
-      stroke:#ffffff;
-      stroke-width:2px;
+      fill: #000;
+      font-weight: 800;
+      letter-spacing: 0.1px;
+      paint-order: stroke;
+      stroke: #ffffff;
+      stroke-width: 2px;
     }
 
     /* мобильные */
@@ -72,10 +71,6 @@
     <div class="stage">
       <div class="frame">
         <svg id="plan" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-          <!-- Фоновое изображение; файл должен лежать рядом и называться "рассадка.png" -->
-          <image id="bg" href="рассадка.svg"
-                 x="0" y="0" width="0" height="0"
-                 preserveAspectRatio="none" />
           <g id="guests"></g>
         </svg>
       </div>
@@ -83,36 +78,6 @@
   </main>
 
   <script>
-    /***** НАСТРОЙКИ ФОНА *****
-     * BG_MODE:
-     *   'manual' — координаты и размер берём из BG_MANUAL (x/y/width/height)
-     *   'auto'   — фон подгоняется под границы гостей с учётом BG_AUTOFIT
-     **************************/
-    const BG_MODE = 'manual'; // 'manual' | 'auto'
-
-    const Y_OFFSET = -100 
-
-    // Режим "manual": меняй цифры ниже как нужно
-    const BG_MANUAL = {
-      x: 1325,   // координата X картинки в системе SVG
-      y: 935 - 100,    // координата Y
-      width: 550, // ширина картинки в SVG-единицах
-      height: 955, // высота
-      preserve: 'none' // 'none' (растягивать ровно в прямоугольник) или 'xMidYMid meet' (без искажений)
-    };
-
-    // Режим "auto": фон повторяет границы гостей + опциональные смещения/масштаб
-    const BG_AUTOFIT = {
-      padX: 60,
-      padY: 120,
-      offsetX: 0,   // сдвиг после автоподгонки
-      offsetY: 0,
-      scaleX: 1.0,  // масштаб относительно рассчитанных w/h
-      scaleY: 1.0,
-      preserve: 'none' // 'none' или 'xMidYMid meet'
-    };
-
-    /***** ДАННЫЕ ГОСТЕЙ *****/
     const DATA = {
       guests: [{"label": "Елена Лукина", "cx": 1455.57, "cy": 1073.58}, {"label": "Вадим \nЕхлаков", "cx": 1505.54, "cy": 1196.96}, {"label": "Златослава Русина", "cx": 1510.6, "cy": 1267.27}, {"label": "Артем \nДанилов", "cx": 1496.47, "cy": 1336.76}, {"label": "Савелий \nДанилов", "cx": 1468.0, "cy": 1399.48}, {"label": "Виолетта Данилова", "cx": 1488.52, "cy": 1522.45}, {"label": "Акмаль Ахмедов", "cx": 1482.26, "cy": 1740.82}, {"label": "Елизавета Власюк", "cx": 1510.65, "cy": 1678.51}, {"label": "Сергей \nДанилов", "cx": 1515.03, "cy": 1598.29}, {"label": "Наталья Ехлакова", "cx": 1319.94, "cy": 956.31}, {"label": "Стефания Русина", "cx": 1286.45, "cy": 1027.35}, {"label": "Светлана Русина", "cx": 1283.61, "cy": 1112.58}, {"label": "Дмитрий Русин", "cx": 1311.84, "cy": 1189.86}, {"label": "София Русина", "cx": 1339.4, "cy": 1255.13}, {"label": "Екатерина Дулевич", "cx": 1312.64, "cy": 1326.15}, {"label": "Заяшников Кирилл", "cx": 1285.41, "cy": 1394.89}, {"label": "София Остудина", "cx": 1284.13, "cy": 1475.3}, {"label": "Юлия Ярыгина", "cx": 1311.87, "cy": 1549.33}, {"label": "Максим Ярыгин", "cx": 1342.57, "cy": 1622.89}, {"label": "Вячеслав \nЛукин", "cx": 1473.88, "cy": 1135.99}, {"label": "Соломон Данилов", "cx": 1461.94, "cy": 1466.6}, {"label": "Ольга Микушина", "cx": 1874.58, "cy": 957.15}, {"label": "Олег Микушин", "cx": 1906.21, "cy": 1016.77}, {"label": "Эльвира Шерки", "cx": 1736.9, "cy": 1079.86}, {"label": "Юрий Михайлов", "cx": 1714.15, "cy": 1147.21}, {"label": "Светлана Шерки", "cx": 1685.27, "cy": 1214.27}, {"label": "Яна Шерки", "cx": 1680.24, "cy": 1299.03}, {"label": "Илья Шерки", "cx": 1707.07, "cy": 1368.73}, {"label": "Виталина Шерки", "cx": 1738.93, "cy": 1443.97}, {"label": "Александра Алексеева", "cx": 1713.49, "cy": 1507.42}, {"label": "Дмитрий Алексеев", "cx": 1685.16, "cy": 1579.65}, {"label": "Иван Мамьянов", "cx": 1681.47, "cy": 1662.68}, {"label": "Сахаяна Николаева", "cx": 1708.86, "cy": 1736.33}, {"label": "Александр Алексеев", "cx": 1911.26, "cy": 1086.95}, {"label": "Татьяна Алексеева", "cx": 1893.97, "cy": 1158.77}, {"label": "Октябрина Головченко", "cx": 1868.71, "cy": 1217.63}, {"label": "Анастасия Корсакова", "cx": 1867.59, "cy": 1281.35}, {"label": "Марина Кольцова", "cx": 1894.81, "cy": 1349.3}, {"label": "Елисей Микушин", "cx": 1916.56, "cy": 1417.77}, {"label": "Дамир Ахметов", "cx": 1914.81, "cy": 1495.74}, {"label": "Егор Черепанов", "cx": 1879.37, "cy": 1563.64}, {"label": "Дарья Коротышова", "cx": 1853.07, "cy": 1625.21}]
     };
@@ -120,9 +85,8 @@
     const svg = document.getElementById('plan');
     const guestsG = document.getElementById('guests');
     const search = document.getElementById('search');
-    const bg = document.getElementById('bg');
 
-    function computeGuestsBounds(padX=60, padY=120){
+    function setTightViewBox(padX=60, padY=120){
       const xs = DATA.guests.map(g=>g.cx);
       const ys = DATA.guests.map(g=>g.cy);
       const minX = Math.min(...xs) - padX;
@@ -131,41 +95,7 @@
       const maxY = Math.max(...ys) + padY/2;
       const w = maxX - minX;
       const h = maxY - minY;
-      return {minX, minY, w, h};
-    }
-
-    function applyViewBox(){
-      // viewBox всегда по границам гостей (как и раньше) — это удобно для масштабирования
-      const {minX, minY, w, h} = computeGuestsBounds(BG_AUTOFIT.padX, BG_AUTOFIT.padY);
       svg.setAttribute('viewBox', `${minX} ${minY} ${w} ${h}`);
-    }
-
-    function placeBackground(){
-      if (!bg) return;
-
-      if (BG_MODE === 'manual'){
-        bg.setAttribute('x', BG_MANUAL.x);
-        bg.setAttribute('y', BG_MANUAL.y);
-        bg.setAttribute('width', BG_MANUAL.width);
-        bg.setAttribute('height', BG_MANUAL.height);
-        bg.setAttribute('preserveAspectRatio', BG_MANUAL.preserve === 'none' ? 'none' : 'xMidYMid meet');
-        bg.removeAttribute('transform'); // на всякий случай
-      } else {
-        // auto-fit: фон равен bbox гостей, затем применяем offset/scale
-        const {minX, minY, w, h} = computeGuestsBounds(BG_AUTOFIT.padX, BG_AUTOFIT.padY);
-
-        const width = w * BG_AUTOFIT.scaleX;
-        const height = h * BG_AUTOFIT.scaleY;
-        const x = minX + BG_AUTOFIT.offsetX + (w - width)/2;
-        const y = minY + BG_AUTOFIT.offsetY + (h - height)/2;
-
-        bg.setAttribute('x', x);
-        bg.setAttribute('y', y);
-        bg.setAttribute('width', width);
-        bg.setAttribute('height', height);
-        bg.setAttribute('preserveAspectRatio', BG_AUTOFIT.preserve === 'none' ? 'none' : 'xMidYMid meet');
-        bg.removeAttribute('transform');
-      }
     }
 
     function dotRadius(){
@@ -192,7 +122,7 @@
       for (const g of DATA.guests) {
         const grp = document.createElementNS('http://www.w3.org/2000/svg','g');
         grp.setAttribute('class','seat');
-        grp.setAttribute('transform', `translate(${g.cx}, ${g.cy + Y_OFFSET})`);
+        grp.setAttribute('transform', `translate(${g.cx}, ${g.cy})`);
 
         const [firstName, lastName] = splitName(g.label);
 
@@ -218,23 +148,17 @@
           grp.classList.add(isMatch ? 'match' : 'dim');
         }
 
+        grp.appendChild(dot);
         grp.appendChild(text);
-        // grp.appendChild(dot);
         guestsG.appendChild(grp);
       }
     }
 
-    function rerender(){
-      applyViewBox();
-      placeBackground();
-      renderGuests(search.value);
-    }
-
     search.addEventListener('input', () => renderGuests(search.value));
-    window.addEventListener('resize', rerender);
+    window.addEventListener('resize', () => renderGuests(search.value));
 
-    // старт
-    rerender();
+    setTightViewBox();
+    renderGuests();
   </script>
 </body>
 </html>
