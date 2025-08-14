@@ -129,7 +129,7 @@
 
         const dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
         dot.setAttribute('r', r);
-        
+
         grp.appendChild(dot);
         grp.appendChild(text);
         guestsG.appendChild(grp);
@@ -139,7 +139,6 @@
     // события
     search.addEventListener('input', () => renderGuests(search.value));
     window.addEventListener('resize', () => {
-      // при ресайзе подстраиваем радиус точки и перерисовываем
       const current = search.value || '';
       renderGuests(current);
     });
