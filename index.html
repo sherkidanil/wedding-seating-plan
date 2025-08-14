@@ -4,70 +4,56 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>План рассадки</title>
-  <!-- Шрифты -->
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg:#ffffff;
-      --ink:#1f2328;
-      --accent:#b48b7d;
+    :root{
+      --bg:#ffffff; --ink:#1f2328; --accent:#b48b7d;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;display:flex;flex-direction:column}
 
-    /* ===== Шапка ===== */
-    .hero {
-      padding:40px 16px 20px;
-      text-align:center;
-    }
-    .hero h1 {
-      font-family:"Great Vibes", cursive;
-      font-size:64px;
-      font-weight:400;
-    }
-    .hero h2 {
-      font-family:"Great Vibes", cursive;
-      font-size:44px;
-      font-weight:700;
-      margin-top:12px;
-    }
-    .hero input {
-      margin-top:20px;
-      border:none;
-      border-bottom:3px solid #bfbfbf;
-      border-radius:0;
-      padding:10px 8px 8px;
-      text-align:center;
-      font-style:italic;
-      font-size:16px;
-      color:#7a7a7a;
-      outline:none;
-      width:100%;
-      max-width:400px;
-      background:transparent;
+    /* Шапка как в макете */
+    .hero{padding:36px 12px 12px;text-align:center}
+    .hero h1{font-family:"Great Vibes",cursive;font-size:clamp(40px,8vw,72px);font-weight:400;line-height:1.05}
+    .hero h2{font-family:"Great Vibes",cursive;font-size:clamp(28px,5.2vw,48px);font-weight:700;margin-top:8px}
+    .hero input{
+      margin:14px auto 8px;display:block;width:min(440px,86vw);
+      border:none;border-bottom:3px solid #bfbfbf;border-radius:0;
+      padding:10px 8px 8px;text-align:center;font-style:italic;font-size:16px;color:#7a7a7a;background:transparent;outline:none
     }
 
-    main{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px;padding:10px}
-    .stage{flex:1;min-height:0;position:relative;border:1px solid #e8e2da;border-radius:12px;background:#fff}
+    main{flex:1;min-height:0;display:flex;flex-direction:column;gap:0;padding:0 10px 10px}
+    .stage{flex:1;min-height:0;position:relative;border:1px solid #e8e2da;border-radius:12px;background:#fff;margin-top:6px}
     .frame{position:absolute;inset:8px;border-radius:10px;overflow:hidden;background:#fff}
     svg{width:100%;height:100%}
+
+    /* Точки и подписи (резиновые размеры) */
+    .seat text{font-size:clamp(11px,1.8vw,16px);font-weight:600;fill:#202428}
     .seat circle{fill:var(--accent);stroke:#7a5e54;stroke-width:0.5}
-    .seat text{font-size:16px;font-weight:600;fill:#202428}
+
+    /* Мобильные правки */
+    @media (max-width:600px){
+      .hero{padding:22px 10px 6px}
+      .stage{margin-top:4px}
+    }
+
+    /* высота сцены — вьюпортная, но не бесконечная */
+    .stage{height:min(80vh,1100px)}
   </style>
 </head>
 <body>
 
-  <!-- Шапка -->
   <section class="hero">
     <h1>Даниил &amp; Кристина</h1>
-    <h2>План рассадки</h2>
-    <input id="search" placeholder="Введите здесь" />
+    <!-- <h2>План рассадки</h2> -->
+    <input id="search" placeholder="Введите здесь свое имя..." />
   </section>
 
   <main>
     <div class="stage">
       <div class="frame">
-        <svg viewBox="1180.0 707.0000610351562 842.0 1190.0" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+        <!-- viewBox зададим из JS по фактическим координатам гостей -->
+        <svg id="plan" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           <g id="guests"></g>
         </svg>
       </div>
@@ -79,10 +65,30 @@
       guests: [{"label": "Елена Лукина", "cx": 1455.57, "cy": 1073.58}, {"label": "Вадим \nЕхлаков", "cx": 1505.54, "cy": 1196.96}, {"label": "Злата Русина", "cx": 1510.6, "cy": 1267.27}, {"label": "Артем \nДанилов", "cx": 1496.47, "cy": 1336.76}, {"label": "Савелий \nДанилов", "cx": 1468.0, "cy": 1399.48}, {"label": "Виолетта Данилова", "cx": 1488.52, "cy": 1522.45}, {"label": "Акмаль Ахмедов", "cx": 1482.26, "cy": 1740.82}, {"label": "Елизавета Власюк", "cx": 1510.65, "cy": 1678.51}, {"label": "Сергей \nДанилов", "cx": 1515.03, "cy": 1598.29}, {"label": "Наталья Ехлакова", "cx": 1319.94, "cy": 956.31}, {"label": "Стефания Русина", "cx": 1286.45, "cy": 1027.35}, {"label": "Светлана Русина", "cx": 1283.61, "cy": 1112.58}, {"label": "Дмитрий Русин", "cx": 1311.84, "cy": 1189.86}, {"label": "София Русина", "cx": 1339.4, "cy": 1255.13}, {"label": "Екатерина Дулевич", "cx": 1312.64, "cy": 1326.15}, {"label": "Заяшников Кирилл", "cx": 1285.41, "cy": 1394.89}, {"label": "София Остудина", "cx": 1284.13, "cy": 1475.3}, {"label": "Юлия Ярыгина", "cx": 1311.87, "cy": 1549.33}, {"label": "Максим Ярыгин", "cx": 1342.57, "cy": 1622.89}, {"label": "Вячеслав \nЛукин", "cx": 1473.88, "cy": 1135.99}, {"label": "Соломон Данилов", "cx": 1461.94, "cy": 1466.6}, {"label": "Ольга Микушина", "cx": 1874.58, "cy": 957.15}, {"label": "Олег Микушин", "cx": 1906.21, "cy": 1016.77}, {"label": "Эльвира Шерки", "cx": 1736.9, "cy": 1079.86}, {"label": "Юрий Михайлов", "cx": 1714.15, "cy": 1147.21}, {"label": "Светлана Шерки", "cx": 1685.27, "cy": 1214.27}, {"label": "Яна Шерки", "cx": 1680.24, "cy": 1299.03}, {"label": "Илья Шерки", "cx": 1707.07, "cy": 1368.73}, {"label": "Виталина Шерки", "cx": 1738.93, "cy": 1443.97}, {"label": "Александра Алексеева", "cx": 1713.49, "cy": 1507.42}, {"label": "Дмитрий Алексеев", "cx": 1685.16, "cy": 1579.65}, {"label": "Иван Мамьянов", "cx": 1681.47, "cy": 1662.68}, {"label": "Сахаяна Николаева", "cx": 1708.86, "cy": 1736.33}, {"label": "Александр Алексеев", "cx": 1911.26, "cy": 1086.95}, {"label": "Татьяна Алексеева", "cx": 1893.97, "cy": 1158.77}, {"label": "Октябрина Головченко", "cx": 1868.71, "cy": 1217.63}, {"label": "Анастасия Корсакова", "cx": 1867.59, "cy": 1281.35}, {"label": "Марина Кольцова", "cx": 1894.81, "cy": 1349.3}, {"label": "Елисей Микушин", "cx": 1916.56, "cy": 1417.77}, {"label": "Дамир Ахметов", "cx": 1914.81, "cy": 1495.74}, {"label": "Егор Черепанов", "cx": 1879.37, "cy": 1563.64}, {"label": "Дарья Коротышова", "cx": 1853.07, "cy": 1625.21}]
     };
 
-    const Y_OFFSET = -200; // на сколько поднять
-
+    const svg = document.getElementById('plan');
     const guestsG = document.getElementById('guests');
     const search = document.getElementById('search');
+
+    // вычисляем компактный viewBox по гостям
+    function setTightViewBox(padX=60, padY=120){
+      const xs = DATA.guests.map(g=>g.cx);
+      const ys = DATA.guests.map(g=>g.cy);
+      const minX = Math.min(...xs) - padX;
+      const maxX = Math.max(...xs) + padX;
+      const minY = Math.min(...ys) - padY; // больше паддинг сверху — там текст над точками
+      const maxY = Math.max(...ys) + padY/2;
+
+      const w = maxX - minX;
+      const h = maxY - minY;
+      svg.setAttribute('viewBox', `${minX} ${minY} ${w} ${h}`);
+    }
+
+    function dotRadius(){
+      const w = window.innerWidth;
+      if (w <= 480) return 3.2;
+      if (w <= 900) return 4;
+      return 4.6;
+    }
 
     function splitName(label){
       const cleaned = label.replace(/\s*\n\s*/g,' ').trim();
@@ -95,6 +101,8 @@
     function renderGuests(filter='') {
       const q = filter.trim().toLowerCase();
       guestsG.innerHTML='';
+      const r = dotRadius();
+
       for (const g of DATA.guests) {
         if (q && !g.label.toLowerCase().includes(q)) continue;
 
@@ -120,16 +128,24 @@
         if (lastName) text.appendChild(t2);
 
         const dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
-        dot.setAttribute('r', 4.5);
-
-        grp.appendChild(text);
+        dot.setAttribute('r', r);
+        
         grp.appendChild(dot);
+        grp.appendChild(text);
         guestsG.appendChild(grp);
-        grp.setAttribute('transform', `translate(${g.cx}, ${g.cy + Y_OFFSET})`);
       }
     }
 
+    // события
     search.addEventListener('input', () => renderGuests(search.value));
+    window.addEventListener('resize', () => {
+      // при ресайзе подстраиваем радиус точки и перерисовываем
+      const current = search.value || '';
+      renderGuests(current);
+    });
+
+    // старт
+    setTightViewBox();
     renderGuests();
   </script>
 </body>
